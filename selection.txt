@@ -1,0 +1,33 @@
+
+class SelectionSort:
+    def __init__(self, arr):
+        self.arr = list(arr)
+        self.comparisons = 0
+        self.swaps = 0
+
+    def sort(self):
+        arr = self.arr
+        n = len(arr)
+
+        for i in range(n - 1):
+            min_index = i
+
+            # Find minimum element in remaining array
+            for j in range(i + 1, n):
+                self.comparisons += 1
+                if arr[j] < arr[min_index]:
+                    min_index = j
+
+            # Swap if needed
+            if min_index != i:
+                arr[i], arr[min_index] = arr[min_index], arr[i]
+                self.swaps += 1
+
+        return arr
+
+
+if __name__ == "__main__":
+    arr = [9, 7, 5, 3, 1]
+    ss = SelectionSort(arr)
+    print("Sorted:", ss.sort())
+    print("Comparisons:", ss.comparisons, "Swaps:", ss.swaps)
