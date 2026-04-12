@@ -1,0 +1,28 @@
+
+class InsertionSort:
+    def __init__(self, arr):
+        self.arr = list(arr)
+        self.comparisons = 0
+        self.shifts = 0
+    def sort(self):
+        arr = self.arr
+        for i in range(1, len(arr)):
+            key = arr[i]
+            j = i - 1
+
+            while j >= 0 and arr[j] > key:
+                self.comparisons += 1
+                arr[j + 1] = arr[j]
+                self.shifts += 1
+                j -= 1
+
+            if j >= 0:
+                self.comparisons += 1
+
+            arr[j + 1] = key
+
+        return arr
+arr = [1, 2, 3, 4, 5]
+ins = InsertionSort(arr)
+print("Sorted:", ins.sort())
+print("Comparisons:", ins.comparisons, "Shifts:", ins.shifts)
