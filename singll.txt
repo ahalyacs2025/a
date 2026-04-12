@@ -1,0 +1,45 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class SLL:
+    def __init__(self):
+        self.head = None
+
+    def insert_end(self, val):
+        new = Node(val)
+        if not self.head:
+            self.head = new
+            return
+        t = self.head
+        while t.next:
+            t = t.next
+        t.next = new
+
+    def reverse(self):
+        prev, curr = None, self.head
+        while curr:
+            nxt = curr.next
+            curr.next = prev
+            prev = curr
+            curr = nxt
+        self.head = prev
+
+    def show(self):  
+        t = self.head
+        while t:
+            print(t.data, end=" ")
+            t = t.next
+        print()
+s = SLL()
+for i in [1,2,3,4]:
+    s.insert_end(i)
+
+print("Original:", end=" ")
+s.show()
+
+s.reverse()
+
+print("Reversed:", end=" ")
+s.show()
