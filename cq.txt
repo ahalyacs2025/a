@@ -1,0 +1,31 @@
+class CircularQueue:
+    def __init__(self, n):
+        self.q = [None]*n
+        self.size = n
+        self.front = 0
+        self.rear = 0
+        self.count = 0
+
+    def enqueue(self, val):
+        if self.count == self.size:
+            print("Full")
+            return
+        self.q[self.rear] = val
+        self.rear = (self.rear + 1) % self.size
+        self.count += 1
+
+    def dequeue(self):
+        if self.count == 0:
+            print("Empty")
+            return
+        val = self.q[self.front]
+        self.front = (self.front + 1) % self.size
+        self.count -= 1
+        return val
+
+    def display(self):
+        i = self.front
+        for _ in range(self.count):
+            print(self.q[i], end=" ")
+            i = (i+1) % self.size
+        print()
