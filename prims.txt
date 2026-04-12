@@ -1,0 +1,32 @@
+
+#prims
+import heapq
+
+graph = {
+    'A': [('B',4), ('C',3)],
+    'B': [('A',4), ('C',1), ('D',2)],
+    'C': [('A',3), ('B',1), ('E',5)],
+    'D': [('B',2)],
+    'E': [('C',5)]
+}
+
+def prim(start):
+    visited = set()
+    heap = [(0, start)]
+    mst = []
+
+    while heap:
+        w, node = heapq.heappop(heap)
+
+        if node in visited:
+            continue
+
+        visited.add(node)
+        mst.append((node, w))
+
+        for nei, wt in graph[node]:
+            if nei not in visited:
+                heapq.heappush(heap, (wt, nei))
+    return mst
+print(prim('A'))
+
