@@ -1,0 +1,58 @@
+class TreeNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+
+class BinaryTree:
+    def __init__(self):
+        self.root = None
+
+    def insert_left(self, parent, data):
+        if parent is None:
+            return
+        parent.left = TreeNode(data)
+
+    def insert_right(self, parent, data):
+        if parent is None:
+            return
+        parent.right = TreeNode(data)
+
+    def inorder(self, root):
+        if root:
+            self.inorder(root.left)
+            print(root.data, end=" ")
+            self.inorder(root.right)
+
+    def preorder(self, root):
+        if root:
+            print(root.data, end=" ")
+            self.preorder(root.left)
+            self.preorder(root.right)
+
+    def postorder(self, root):
+        if root:
+            self.postorder(root.left)
+            self.postorder(root.right)
+            print(root.data, end=" ")
+
+
+# Test
+bt = BinaryTree()
+bt.root = TreeNode('A')
+
+bt.insert_left(bt.root, 'B')
+bt.insert_right(bt.root, 'C')
+bt.insert_left(bt.root.left, 'D')
+bt.insert_right(bt.root.left, 'E')
+bt.insert_right(bt.root.right, 'F')
+
+print("Inorder:")
+bt.inorder(bt.root)
+
+print("\nPreorder:")
+bt.preorder(bt.root)
+
+print("\nPostorder:")
+bt.postorder(bt.root)
