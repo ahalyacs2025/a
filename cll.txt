@@ -1,0 +1,72 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+
+class CircularLinkedList:
+    def __init__(self):
+        self.tail = None
+
+    def insert_end(self, data):
+        new_node = Node(data)
+
+        if self.tail is None:
+            self.tail = new_node
+            new_node.next = new_node
+        else:
+            new_node.next = self.tail.next
+            self.tail.next = new_node
+            self.tail = new_node
+
+        return new_node
+
+    def insert_before(self, target, data):
+        if target is None or self.tail is None:
+            print("Invalid target")
+            return None
+
+        new_node = Node(data)
+
+        if target == self.tail:
+            new_node.next = self.tail.next
+            self.tail.next = new_node
+            self.tail = new_node
+            return new_node
+
+        curr = self.tail
+        while curr.next != target:
+            curr = curr.next
+            if curr == self.tail:
+                print("Target not found")
+                return None
+
+        new_node.next = target
+        curr.next = new_node
+        return new_node
+
+    def delete_head(self):
+        if self.tail:
+            if self.tail.next == self.tail:
+                self.tail = None
+            else:
+                self.tail.next = self.tail.next.next
+
+    def print_list(self):
+        if not self.tail:
+            print("Empty")
+            return
+
+        curr = self.tail.next
+        while True:
+            print(curr.data, end=" -> ")
+            curr = curr.next
+            if curr == self.tail.next:
+                break
+        print("(circular)")
+cll = CircularLinkedList()
+
+for i in range(4):
+    cll.insert_end(i)
+
+cll.print_list()
