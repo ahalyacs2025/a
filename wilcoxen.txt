@@ -1,0 +1,46 @@
+# Data
+before <- c(40,42,45,47,50)
+after  <- c(44,41,46,49,54)
+
+alpha <- 0.05
+
+# Wilcoxon signed-rank test
+test <- wilcox.test(after, before,
+                    paired = TRUE,
+                    exact = TRUE)
+
+print(test)
+
+# Decision
+if(test$p.value < alpha){
+  cat("Conclusion: Reject H0\n")
+  cat("Significant difference exists between before and after\n")
+} else {
+  cat("Conclusion: Fail to Reject H0\n")
+  cat("No significant difference\n")
+}
+
+# Visualization
+
+# Scatter plot
+plot(before, after,
+     pch=19,
+     xlab="Before",
+     ylab="After",
+     main="Before vs After")
+
+abline(0, 1, lty=2)
+
+# Boxplot
+boxplot(before, after,
+        names=c("Before","After"),
+        main="Wilcoxon Test Comparison")
+
+# Differences
+d <- after - before
+
+dotchart(d,
+         main="Differences (Wilcoxon Test)",
+         xlab="Difference")
+
+abline(v=0, lty=2)
