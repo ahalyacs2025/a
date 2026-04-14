@@ -1,0 +1,84 @@
+#set b '
+#q1
+#two sample z test(means)
+# Given
+n1 <- 80; x1 <- 105; s1 <- 15
+n2 <- 100; x2 <- 100; s2 <- 20
+
+# Z statistic
+z <- (x1 - x2) / sqrt((s1^2 / n1) + (s2^2 / n2))
+z
+
+# p-value (two-tailed)
+p_value <- 2 * (1 - pnorm(abs(z)))
+p_value
+
+# Decision at 1%
+alpha <- 0.01
+if (p_value < alpha) {
+  print("Reject H0")
+} else {
+  print("Fail to reject H0")
+}
+
+# Plot two normal distributions
+x <- seq(60, 150, length = 200)
+
+y1 <- dnorm(x, mean = x1, sd = s1)
+y2 <- dnorm(x, mean = x2, sd = s2)
+
+plot(x, y1, type = "l", col = "blue", lwd = 2,
+     main = "Two Normal Distributions", ylab = "Density")
+lines(x, y2, col = "red", lwd = 2)
+
+legend("topright", legend = c("Sample 1", "Sample 2"),
+       col = c("blue", "red"), lwd = 2)
+
+# Mark means
+abline(v = x1, col = "blue", lty = 2)
+abline(v = x2, col = "red", lty = 2)
+
+
+
+
+#q2
+#one sample ztest
+# Given
+n <- 100
+xbar <- 52
+mu0 <- 50
+sigma <- 10
+
+# Z statistic
+z <- (xbar - mu0) / (sigma / sqrt(n))
+z
+
+# p-value (two-tailed)
+p_value <- 2 * (1 - pnorm(abs(z)))
+p_value
+
+# Decision
+alpha <- 0.05
+if (p_value < alpha) {
+  print("Reject H0")
+} else {
+  print("Fail to reject H0")
+}
+
+# Plot normal curve
+x <- seq(30, 70, length = 200)
+y <- dnorm(x, mean = mu0, sd = sigma / sqrt(n))
+
+plot(x, y, type = "l", lwd = 2,
+     main = "Z Distribution")
+
+# Critical values
+z_crit <- qnorm(1 - alpha/2)
+crit_upper <- mu0 + z_crit * (sigma / sqrt(n))
+crit_lower <- mu0 - z_crit * (sigma / sqrt(n))
+
+abline(v = crit_upper, col = "red", lty = 2)
+abline(v = crit_lower, col = "red", lty = 2)
+
+# Mark observed mean
+abline(v = xbar, col = "blue", lwd = 2)
