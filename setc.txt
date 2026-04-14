@@ -1,0 +1,89 @@
+#set c 
+
+#q1
+#test equality of var(ftest)
+# Data
+A <- c(12, 15, 14, 10, 13)
+B <- c(20, 22, 19, 23, 21)
+
+# Sample variances
+var_A <- var(A)
+var_B <- var(B)
+
+var_A
+var_B
+
+# F-test (two-sided)
+f_test <- var.test(A, B, alternative = "two.sided", conf.level = 0.95)
+f_test
+
+# Boxplots
+boxplot(A, B, names = c("Sample A", "Sample B"),
+        col = c("lightblue", "lightgreen"),
+        main = "Boxplots of Samples")
+
+# Variance comparison bar chart
+barplot(c(var_A, var_B),
+        names.arg = c("A", "B"),
+        col = c("blue", "green"),
+        main = "Variance Comparison",
+        ylab = "Variance")
+
+# F-distribution with critical region
+df1 <- length(A) - 1
+df2 <- length(B) - 1
+
+x <- seq(0, 5, length = 100)
+y <- df(x, df1, df2)
+
+plot(x, y, type = "l", lwd = 2, main = "F Distribution")
+
+# Critical values
+alpha <- 0.05
+f_crit_upper <- qf(1 - alpha/2, df1, df2)
+f_crit_lower <- qf(alpha/2, df1, df2)
+
+abline(v = f_crit_upper, col = "red", lty = 2)
+abline(v = f_crit_lower, col = "red", lty = 2)
+
+
+#q2
+#proportion test 
+# Given
+n <- 400
+x <- 220
+p0 <- 0.60
+
+# Sample proportion
+phat <- x / n
+
+# Z statistic
+z <- (phat - p0) / sqrt(p0 * (1 - p0) / n)
+z
+
+# p-value
+p_value <- 2 * (1 - pnorm(abs(z)))
+p_value
+
+# Decision
+alpha <- 0.05
+if (p_value < alpha) {
+  print("Reject H0")
+} else {
+  print("Fail to reject H0")
+}
+
+# Plot sampling distribution
+x_vals <- seq(0.4, 0.8, length = 100)
+y_vals <- dnorm(x_vals, mean = p0, sd = sqrt(p0*(1-p0)/n))
+
+plot(x_vals, y_vals, type = "l", lwd = 2,
+     main = "Sampling Distribution of Proportion")
+
+# Critical region
+z_crit <- qnorm(1 - alpha/2)
+abline(v = p0 + z_crit * sqrt(p0*(1-p0)/n), col = "red")
+abline(v = p0 - z_crit * sqrt(p0*(1-p0)/n), col = "red")
+
+# Mark observed proportion
+abline(v = phat, col = "blue", lwd = 2)
