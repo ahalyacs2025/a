@@ -1,0 +1,32 @@
+#chisq test for independence
+
+data <- matrix(c(30,20,25,25),
+               nrow=2,
+               byrow=TRUE)
+
+rownames(data) <- c("Male","Female")
+colnames(data) <- c("Prod A","Prod B")
+
+print(data)
+
+test2 <- chisq.test(data)
+
+test2
+
+alpha <- 0.05
+
+if(test2$p.value < alpha){
+  print("Reject H0")
+} else {
+  print("Accept H0")
+}
+
+
+x <- seq(0,10,0.1)
+y <- dchisq(x, df=1)
+
+plot(x,y, type="l", lwd=2,
+     main="Chi-square Distribution (df=1)",
+     xlab="Value", ylab="Density")
+
+abline(v=test2$statistic, col="blue", lwd=2)
