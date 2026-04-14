@@ -1,0 +1,12 @@
+#ks test 
+
+x = c(2.1,2.5,3.0,3.5,4.0)
+ks.test(x,'pnorm',mean=3,sd=1)
+
+plot(ecdf(x),verticals=TRUE,do.points=FALSE)
+curve(pnorm(x,3,1),add = TRUE,col="blue")
+hist(x,probability=TRUE)
+curve(dnorm(x,3,1), add = TRUE, col ="red")
+Fn = ecdf(x)
+xx = seq(min(x),max(x),length=100)
+plot(xx,abs(Fn(xx)-pnorm(xx,3,1)),type = 'l')
