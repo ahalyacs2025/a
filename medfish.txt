@@ -1,0 +1,31 @@
+A = c(12,15,14,10,13)
+B = c(18,20,17,22,19)
+
+data = c(A,B)
+group = factor(c(rep('A',5),rep('B',5)))
+
+#median test
+median_val = median(data)
+tbl = table(group, data > median_val)
+chisq.test(table(group, data > median_val))
+boxplot(A, B, names=c('A','B'), main='Boxplot Comparison')
+
+#fishers test 
+fisher.test(tbl)
+
+hist(A, col='lightblue')
+hist(B, col='pink', add=TRUE)
+
+plot(density(A), col='blue')
+lines(density(B), col='red')
+
+
+plot(data, col=group)
+abline(h=median_val, col='red')
+
+x = c(2,1,2,5,3,0,3,5,4,0)
+plot(ecdf(x), main="ECDF vs Normal CDF")
+curve(pnorm(x,mean=3 ))
+
+
+
