@@ -1,0 +1,14 @@
+df = pd.read_csv("orders.csv")
+
+# Fill missing
+df.fillna(method='ffill', inplace=True)
+
+# Convert date
+df['Order_Date'] = pd.to_datetime(df['Order_Date'])
+
+# Total amount
+df['Total_Amount'] = df['Price'] * df['Quantity']
+
+# Extract features
+df['Order_Year'] = df['Order_Date'].dt.year
+df['Order_Month'] = df['Order_Date'].dt.month
