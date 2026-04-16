@@ -1,0 +1,13 @@
+# Fill missing values
+df['Price'] = df['Price'].fillna(df['Price'].mean())
+df['Quantity'] = df['Quantity'].fillna(df['Quantity'].mean())
+
+# Revenue
+df['Revenue'] = df['Price'] * df['Quantity'] * (1 - df['Discount']/100)
+
+# Min-Max Normalization
+df['Price_norm'] = (df['Price'] - df['Price'].min()) / (df['Price'].max() - df['Price'].min())
+df['Quantity_norm'] = (df['Quantity'] - df['Quantity'].min()) / (df['Quantity'].max() - df['Quantity'].min())
+
+# New calculated field
+df['Revenue_per_Unit'] = df['Revenue'] / df['Quantity']
