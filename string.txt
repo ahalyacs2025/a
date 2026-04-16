@@ -1,0 +1,16 @@
+import pandas as pd
+
+data = {"Name": [" john ", "ALICE", "bOb"]}
+
+df = pd.DataFrame(data)
+
+# Remove spaces
+df["Name"] = df["Name"].str.strip()
+
+# Convert to lowercase
+df["Name"] = df["Name"].str.lower()
+
+# Convert to title case
+df["Name"] = df["Name"].str.title()
+
+print(df)
