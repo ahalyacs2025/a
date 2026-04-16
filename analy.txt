@@ -1,0 +1,17 @@
+import pandas as pd
+
+data = {
+    "Marks": [80, 75, 90, 85, 70]
+}
+
+df = pd.DataFrame(data)
+
+print("Mean:", df["Marks"].mean())
+print("Median:", df["Marks"].median())
+print("Max:", df["Marks"].max())
+print("Min:", df["Marks"].min())
+print("Std Dev:", df["Marks"].std())
+
+print(df.select_dtypes(include=["number"]).describe())
+
+print(df.select_dtypes(include=["number"]).head(2).mean())
