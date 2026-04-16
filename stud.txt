@@ -1,0 +1,23 @@
+import pandas as pd
+
+df = pd.read_csv("student_marks.csv")
+
+# Fill missing marks with subject average
+df = df.fillna(df.mean(numeric_only=True))
+
+# Split full name
+df[['First_Name', 'Last_Name']] = df['Name'].str.split(' ', expand=True)
+
+# Standardize department
+df['Department'] = df['Department'].replace({
+    'cse': 'CSE',
+    'C.S.E': 'CSE'
+})
+
+# Percentage
+df['Percentage'] = df[['Math', 'Science', 'English']].mean(axis=1)
+
+# Rank students
+df['Rank'] = df['Percentage'].rank(ascending=False)
+
+print(df)
