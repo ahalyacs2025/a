@@ -1,0 +1,13 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Dataset
+data = [10,12,12,13,12,14,15,16,18,25,55,65,110]
+
+# Create boxplot
+plt.boxplot(data)
+
+plt.title("Boxplot for Outlier Detection")
+plt.ylabel("Values")
+
+plt.show()
