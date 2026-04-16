@@ -1,0 +1,12 @@
+import numpy as np
+from outliers import smirnov_grubbs as grubbs
+
+data = np.array([10,12,12,13,12,14,15,16,18,25,55,65,110])
+
+# Get cleaned data (outliers removed)
+clean_data = grubbs.test(data)
+
+# Find outliers
+outliers = list(set(data) - set(clean_data))
+
+print("Outliers detected:", outliers)
