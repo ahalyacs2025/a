@@ -1,0 +1,21 @@
+import pandas as pd
+
+df = pd.read_csv("customers.csv")
+
+# Missing values
+df.fillna(method='ffill', inplace=True)
+
+# Uppercase names
+df['Name'] = df['Name'].str.upper()
+
+# Extract email domain
+df['Email_Domain'] = df['Email'].str.split('@').str[1]
+
+# Group customers by city
+city_group = df.groupby('City').size()
+
+# Filter customers with income > average
+avg_income = df['Income'].mean()
+filtered = df[df['Income'] > avg_income]
+
+print(filtered)
