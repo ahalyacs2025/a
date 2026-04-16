@@ -1,0 +1,17 @@
+import numpy as np
+from scipy.stats import zscore
+
+data = np.array([10,12,12,13,12,14,15,16,18,25,55,65,110])
+
+# Calculate Z-scores
+z_score = zscore(data)
+print("Z-Score:")
+print(z_score)
+
+# Threshold
+threshold = 3
+
+outliers = data[np.abs(z_score) > threshold]
+
+print("\nOutliers detected:")
+print(outliers)
