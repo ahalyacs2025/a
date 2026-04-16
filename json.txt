@@ -1,0 +1,19 @@
+import requests
+import pandas as pd
+
+# i) Fetch JSON data from API
+url = "https://jsonplaceholder.typicode.com/users"
+response = requests.get(url)
+
+data = response.json()
+
+# ii) Convert JSON to Pandas DataFrame
+df = pd.json_normalize(data)
+
+print(df.head())
+
+# iii) Store data into CSV and JSON
+df.to_csv("api_data.csv", index=False)
+df.to_json("api_data.json", orient="records", indent=4)
+
+print("Files saved successfully!")
