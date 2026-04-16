@@ -1,0 +1,27 @@
+import pandas as pd
+
+# Load dataset
+df = pd.read_csv("retail_sales.csv")
+
+# Inspect missing values
+print(df.isnull().sum())
+
+# Fill missing values
+df['Price'] = df['Price'].fillna(df['Price'].median())
+df['Quantity'] = df['Quantity'].fillna(df['Quantity'].median())
+
+# For categorical columns (example: Product)
+df['Product'] = df['Product'].fillna(df['Product'].mode()[0])
+
+# String operations
+df['Product'] = df['Product'].str.lower()
+
+# New column: first 3 chars of product
+df['Product_short'] = df['Product'].str[:3]
+
+# Total Sales
+df['Total_Sales'] = df['Price'] * df['Quantity']
+
+# Aggregate by category
+category_sales = df.groupby('Product_Category')['Total_Sales'].sum()
+print(category_sales)
